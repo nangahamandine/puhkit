@@ -15,33 +15,40 @@ class _LoginScreenState extends State<LoginScreen> {
     String email = emailController.text;
     String password = passwordController.text;
 
-    // Implement your login logic here
-    // Example: Check credentials and navigate to the dashboard on success
-
-    if (email.isNotEmpty && password.isNotEmpty) {
-      // Replace the below logic with your actual authentication logic
-      if (email == 'user@example.com' && password == 'password') {
-        // Successful login, navigate to the dashboard or home page
-        Navigator.of(context).pushReplacementNamed('/dashboard'); // Replace '/dashboard' with your actual route
-      } else {
-        // Invalid credentials, show an error message
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('Login Failed'),
-            content: Text('Invalid email or password. Please try again.'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
-        );
-      }
+    // Replace with your actual authentication logic
+    // Check if email and password are valid
+    if (isValidEmail(email) && isValidPassword(password)) {
+      // Successful login, navigate to the dashboard's OverviewScreen
+      Navigator.pushReplacementNamed(context, '/dashboard/overview'); // Navigate to the OverviewScreen
+    } else {
+      // Invalid credentials, show an error message
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Login Failed'),
+          content: Text('Invalid email or password. Please try again.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
+  }
+
+  // Function to validate email format
+  bool isValidEmail(String email) {
+    final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+    return emailRegex.hasMatch(email);
+  }
+
+  // Function to validate password length
+  bool isValidPassword(String password) {
+    return password.length >= 6; // Change the validation criteria as needed
   }
 
   @override
@@ -60,17 +67,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.grey[800],
                   fontSize: 18.0,
                   fontStyle: FontStyle.italic,
-                  // fontWeight: FontWeight.bold, // Apply bold style
                 ),
               ),
-              SizedBox(height: 5.0),
-
-              // Your resizable illustration
+              // Resizable illustration
               Image.asset(
                 'assets/images/login.png', // Replace with your illustration asset path
-                fit: BoxFit.fill, // Resize the illustration to fill available space
-                width: 400.0, // Set the maximum width of the illustration
-                height: 250.0, // Set the maximum height of the illustration
+                fit: BoxFit.fill,
+                width: 400.0,
+                height: 250.0,
               ),
 
               // Login Form
@@ -88,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 15.0),
                     TextFormField(
                       controller: passwordController,
-                      obscureText: !isPasswordVisible, // Toggle password visibility
+                      obscureText: !isPasswordVisible,
                       decoration: InputDecoration(
                         labelText: 'Password',
                         border: OutlineInputBorder(),
@@ -109,18 +113,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     ElevatedButton(
                       onPressed: loginUser,
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.black, // Set login button background color to black
-                        padding: EdgeInsets.symmetric(horizontal: 60.0, vertical: 15.0), // Increased padding for uniform width
+                        primary: Colors.black,
+                        padding: EdgeInsets.symmetric(horizontal: 60.0, vertical: 15.0),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0), // Apply rounded corners
+                          borderRadius: BorderRadius.circular(30.0),
                         ),
                       ),
                       child: Text(
                         'Login',
                         style: TextStyle(
-                          color: Colors.white, // Set login button text color to white
+                          color: Colors.white,
                           fontSize: 18.0,
-                          fontWeight: FontWeight.bold, // Increase font size for sophistication
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),

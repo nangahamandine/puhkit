@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:puhkit/screens/authentication/login_screen.dart';
 import 'package:puhkit/screens/authentication/welcome_screen.dart';
+import 'package:puhkit/screens/dashboard/overview_screen.dart';
 
 void main() {
   runApp(const PuhKit());
@@ -13,6 +14,12 @@ class PuhKit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/dashboard/overview': (context) => OverviewScreen(),
+        '/authentication/login_screen': (context) => LoginScreen(),
+        // Add other routes here
+      },
+      initialRoute: '/login',
       title: 'PuhKit App',
       theme: ThemeData(
         // Define your app's theme here using the brand colors you mentioned
