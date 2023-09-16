@@ -1,4 +1,4 @@
-# Expense Tracker App Code of Conduct
+# PuhKit App Code of Conduct
 
 ## Introduction
 
@@ -40,7 +40,7 @@ Unacceptable behavior will not be tolerated within the Expense Tracker app proje
 
 ## Reporting Guidelines
 
-If you are subject to or witness unacceptable behavior, please report it to the project maintainers via [project-specific contact information or reporting mechanism]. All reports will be kept confidential, and you will not be subject to retaliation for reporting.
+If you are subject to or witness unacceptable behavior, please report it to the project maintainers via [amandinenangah1@gmail.com]. All reports will be kept confidential, and you will not be subject to retaliation for reporting.
 
 ## Enforcement
 
@@ -52,6 +52,6 @@ This code of conduct is adapted from the [Contributor Covenant](https://www.cont
 
 ## Contact
 
-If you have questions or need to report an incident, please contact the project maintainers at [project-specific contact information or email address].
+If you have questions or need to report an incident, please contact the project maintainers at [amandinenangah1@gmail.com].
 
 We are committed to upholding this code of conduct to ensure a welcoming and inclusive community for all.
