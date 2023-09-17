@@ -15,7 +15,7 @@ class PuhKit extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/dashboard/overview': (context) => OverviewScreen(),
+        '/dashboard/overview': (context) => OverviewScreen(username: 'User',),
         '/authentication/login_screen': (context) => LoginScreen(),
         // Add other routes here
       },

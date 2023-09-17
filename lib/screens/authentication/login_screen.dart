@@ -1,32 +1,39 @@
 import 'package:flutter/material.dart';
 
+import '../dashboard/overview_screen.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
+  TextEditingController usernameOrEmailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isPasswordVisible = false; // Track password visibility
 
   // Function to handle user login
   void loginUser() {
-    String email = emailController.text;
+    String usernameOrEmail = usernameOrEmailController.text;
     String password = passwordController.text;
 
     // Replace with your actual authentication logic
-    // Check if email and password are valid
-    if (isValidEmail(email) && isValidPassword(password)) {
+    // Check if username or email and password are valid
+    if (isValidUsernameOrEmail(usernameOrEmail) && isValidPassword(password)) {
       // Successful login, navigate to the dashboard's OverviewScreen
-      Navigator.pushReplacementNamed(context, '/dashboard/overview'); // Navigate to the OverviewScreen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OverviewScreen(username: usernameOrEmail), // Pass the username or email to OverviewScreen
+        ),
+      );
     } else {
       // Invalid credentials, show an error message
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text('Login Failed'),
-          content: Text('Invalid email or password. Please try again.'),
+          content: Text('Invalid credentials. Please try again.'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -40,10 +47,16 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  // Function to validate email format
-  bool isValidEmail(String email) {
+  // Function to validate username or email
+  bool isValidUsernameOrEmail(String usernameOrEmail) {
     final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
-    return emailRegex.hasMatch(email);
+    if (emailRegex.hasMatch(usernameOrEmail)) {
+      // It's an email
+      return true;
+    } else {
+      // It's not an email, you can perform username validation here if needed
+      return usernameOrEmail.isNotEmpty; // Basic validation, change as needed
+    }
   }
 
   // Function to validate password length
@@ -83,9 +96,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     TextFormField(
-                      controller: emailController,
+                      controller: usernameOrEmailController,
                       decoration: InputDecoration(
-                        labelText: 'Email',
+                        labelText: 'Username or Email', // Update label text
                         border: OutlineInputBorder(),
                       ),
                     ),

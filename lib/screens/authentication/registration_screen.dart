@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:puhkit/screens/authentication/login_screen.dart';
+
 
 class RegistrationScreen extends StatefulWidget {
   @override
@@ -8,16 +10,18 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController usernameController = TextEditingController(); // Add a username controller
   bool isPasswordVisible = false; // Track password visibility
 
   // Function to handle user registration
   void registerUser() {
     String email = emailController.text;
     String password = passwordController.text;
+    String username = usernameController.text; // Get the username
 
     // Replace with your actual registration logic
-    // Check if email and password are valid
-    if (isValidEmail(email) && isValidPassword(password)) {
+    // Check if email, password, and username are valid
+    if (isValidEmail(email) && isValidPassword(password) && isValidUsername(username)) {
       // Check if an account already exists with the given email
       if (accountAlreadyExists(email)) {
         // Account already exists, show an error message
@@ -38,7 +42,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         );
       } else {
         // Successful registration, navigate to the dashboard's OverviewScreen
-        Navigator.of(context).pushReplacementNamed('/authentication/login_screen'); // Replace with your actual route
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => LoginScreen(), // Pass the username to OverviewScreen
+          ),
+        );
       }
     } else {
       // Invalid registration data, show an error message
@@ -46,7 +54,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         context: context,
         builder: (context) => AlertDialog(
           title: Text('Registration Failed'),
-          content: Text('Invalid email or password. Please try again.'),
+          content: Text('Invalid email, username, or password. Please try again.'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -69,6 +77,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   // Function to validate password length
   bool isValidPassword(String password) {
     return password.length >= 6; // Change the validation criteria as needed
+  }
+
+  // Function to validate username (you can customize this validation)
+  bool isValidUsername(String username) {
+    return username.isNotEmpty; // Basic validation, change as needed
   }
 
   // Simulated function to check if an account already exists with the given email
@@ -112,6 +125,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       controller: emailController,
                       decoration: InputDecoration(
                         labelText: 'Email',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 15.0),
+                    TextFormField(
+                      controller: usernameController, // Add a TextFormField for the username
+                      decoration: InputDecoration(
+                        labelText: 'Username', // Customize label text as needed
                         border: OutlineInputBorder(),
                       ),
                     ),
